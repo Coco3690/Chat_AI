@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI對話-成品展示平台</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+  .product {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+  .product-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+  .product-description {
+            margin-bottom: 15px;
+        }
+
+  .product-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+  .product-image {
+            margin: 5px;
+            cursor: pointer;
+        }
+
+  .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+  .enlarged-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+  .enlarged-image img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 5px;
+        }
+
+        /* 大屏幕，每列显示4张图片 */
+        @media (min-width: 1200px) {
+      .product-image {
+                width: calc((100% - 20px) / 4);
+            }
+        }
+
+        /* 中等屏幕，每列显示3张图片 */
+        @media (min-width: 992px) and (max-width: 1199px) {
+      .product-image {
+                width: calc((100% - 15px) / 3);
+            }
+        }
+
+        /* 小屏幕，每列显示2张图片 */
+        @media (min-width: 768px) and (max-width: 991px) {
+      .product-image {
+                width: calc((100% - 10px) / 2);
+            }
+        }
+
+        /* 超小屏幕，每列显示1张图片 */
+        @media (max-width: 767px) {
+      .product-image {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 第一个成品展示 -->
+    <div class="product">
+        <h2 class="product-title">在LM Studio部署本地對話模型</h2>
+        <p class="product-description">若有較為隱私的資訊，可以使用本地模型，而非網頁版。</p>
+        <div class="product-images">
+            <div class="product-image">
+                <img src="LMstudio_local-install-model/001.jpg" alt="成品一图片1">
+            </div>
+            <div class="product-image">
+                <img src="LMstudio_local-install-model/002.jpg" alt="成品一图片2">
+            </div>
+            <div class="product-image">
+                <img src="LMstudio_local-install-model/003.jpg" alt="成品一图片3">
+            </div>
+            <div class="product-image">
+                <img src="LMstudio_local-install-model/004.jpg" alt="成品一图片4">
+            </div>
+            <div class="product-image">
+                <img src="LMstudio_local-install-model/005.jpg" alt="成品一图片5">
+            </div>
+            <div class="product-image">
+                <img src="LMstudio_local-install-model/006.jpg" alt="成品一图片6">
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片放大模态框 -->
+    <div class="enlarged-image">
+        <img id="enlarged-img" src="" alt="放大图片">
+    </div>
+
+    <script>
+        const productImages = document.querySelectorAll('.product-image');
+        const enlargedImage = document.querySelector('.enlarged-image');
+        const enlargedImg = document.getElementById('enlarged-img');
+
+        productImages.forEach(image => {
+            image.addEventListener('click', () => {
+                const imgSrc = image.querySelector('img').src;
+                enlargedImg.src = imgSrc;
+                enlargedImage.style.display = 'flex';
+            });
+        });
+
+        enlargedImage.addEventListener('click', () => {
+            enlargedImage.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>
