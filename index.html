@@ -12,7 +12,7 @@
             padding: 0;
         }
 
-  .product {
+    .product {
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 20px;
@@ -20,33 +20,33 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-  .product-title {
+    .product-title {
             font-size: 24px;
             margin-bottom: 10px;
         }
 
-  .product-description {
+    .product-description {
             margin-bottom: 15px;
         }
 
-  .product-images {
+    .product-images {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
         }
 
-  .product-image {
+    .product-image {
             margin: 5px;
             cursor: pointer;
         }
 
-  .product-image img {
+    .product-image img {
             width: 100%;
             height: auto;
             border-radius: 5px;
         }
 
-  .enlarged-image {
+    .enlarged-image {
             position: fixed;
             top: 0;
             left: 0;
@@ -58,7 +58,7 @@
             align-items: center;
         }
 
-  .enlarged-image img {
+    .enlarged-image img {
             max-width: 90%;
             max-height: 90%;
             border-radius: 5px;
@@ -66,30 +66,42 @@
 
         /* 大屏幕，每列显示4张图片 */
         @media (min-width: 1200px) {
-      .product-image {
-                width: calc((100% - 20px) / 4);
-            }
+        .product-image {
+                    width: calc((100% - 20px) / 4);
+                }
         }
 
         /* 中等屏幕，每列显示3张图片 */
         @media (min-width: 992px) and (max-width: 1199px) {
-      .product-image {
-                width: calc((100% - 15px) / 3);
-            }
+        .product-image {
+                    width: calc((100% - 15px) / 3);
+                }
         }
 
         /* 小屏幕，每列显示2张图片 */
         @media (min-width: 768px) and (max-width: 991px) {
-      .product-image {
-                width: calc((100% - 10px) / 2);
-            }
+        .product-image {
+                    width: calc((100% - 10px) / 2);
+                }
         }
 
         /* 超小屏幕，每列显示1张图片 */
         @media (max-width: 767px) {
-      .product-image {
-                width: 100%;
-            }
+        .product-image {
+                    width: 100%;
+                }
+        }
+
+        /* 视频样式，使其与图片大小一致 */
+       .product-video {
+            width: calc((100% - 20px) / 4); /* 参考大屏幕图片宽度计算方式，可根据实际调整 */
+            margin: 5px;
+        }
+
+       .product-video video {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -121,8 +133,8 @@
             </div>
         </div>
     </div>
-	
-	    <!-- 第二个成品展示 -->
+
+    <!-- 第二个成品展示 -->
     <div class="product">
         <h2 class="product-title">【用VS code的cline插件自動寫代碼】</h2>
         <p class="product-description">一開始選定資料夾後，全程自動，無需創建檔案。惟有些API需要付費，請自行了解。</p>
@@ -148,7 +160,27 @@
         </div>
     </div>
 
-    <!-- 图片放大模态框 -->
+    <!-- 第三个成品展示 -->
+    <div class="product">
+        <h2 class="product-title">【Deepseek教你如何做出可互動的電腦桌面寵物】</h2>
+        <p class="product-description">若有較為隱私的資訊，可以使用本地模型，而非網頁版。</p>
+        <div class="product-images">
+            <div class="product-image">
+                <img src="Desktop_Pet/001.jpg" alt="成品一图片1">
+            </div>
+            <div class="product-image">
+                <img src="Desktop_Pet/002.jpg" alt="成品一图片2">
+            </div>
+            <div class="product-image">
+                <img src="Desktop_Pet/003.jpg" alt="成品一图片3">
+            </div>
+            <div class="product-video">
+                <video src="Desktop_Pet/004.mp4" controls alt="成品一影片4"></video>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片放大模态框，这里仅用于放大图片，视频放大需另外处理 -->
     <div class="enlarged-image">
         <img id="enlarged-img" src="" alt="放大图片">
     </div>
@@ -168,6 +200,36 @@
 
         enlargedImage.addEventListener('click', () => {
             enlargedImage.style.display = 'none';
+        });
+
+        // 处理视频点击放大（这里简单示例，可根据需求完善）
+        const productVideos = document.querySelectorAll('.product-video');
+        productVideos.forEach(video => {
+            video.addEventListener('click', () => {
+                const videoSrc = video.querySelector('video').src;
+                // 创建一个新的视频元素用于放大显示
+                const enlargedVideo = document.createElement('video');
+                enlargedVideo.src = videoSrc;
+                enlargedVideo.controls = true;
+                // 创建一个新的模态框用于显示放大视频（这里简单创建，样式等可优化）
+                const enlargedVideoModal = document.createElement('div');
+                enlargedVideoModal.style.position = 'fixed';
+                enlargedVideoModal.style.top = 0;
+                enlargedVideoModal.style.left = 0;
+                enlargedVideoModal.style.width = '100vw';
+                enlargedVideoModal.style.height = '100vh';
+                enlargedVideoModal.style.backgroundColor = rgba(0, 0, 0, 0.8);
+                enlargedVideoModal.style.display = 'flex';
+                enlargedVideoModal.style.justifyContent = 'center';
+                enlargedVideoModal.style.alignItems = 'center';
+                enlargedVideoModal.appendChild(enlargedVideo);
+                document.body.appendChild(enlargedVideoModal);
+
+                // 添加关闭点击事件
+                enlargedVideoModal.addEventListener('click', () => {
+                    document.body.removeChild(enlargedVideoModal);
+                });
+            });
         });
     </script>
 </body>
